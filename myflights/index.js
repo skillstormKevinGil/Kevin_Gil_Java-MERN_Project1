@@ -26,3 +26,17 @@ mongoose.connect(process.env.MONGO_URI)
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`);
 });
+
+
+// mongoose.disconnect(process.env.MONGO_URI)
+//      .then(() => {
+//      console.log('Disconnected from MongoDB!');
+//      })
+//      .catch(err => {
+//          console.error(err);
+//          // Options
+//          // OR
+//          // Terminate process
+//          process.exit(1);
+//      });
+// process.exit(1);

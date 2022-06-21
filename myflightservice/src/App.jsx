@@ -1,24 +1,21 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { FlightForm } from './components/FlightForm';
+import { Error } from './pages';
+import { Landing } from './pages';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    //<AppNav/>
+    <BrowserRouter>
+      <Routes>
+        {/* When the URL in the browser becomes /, toggle on the Landing page */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/new-" element={<FlightForm />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
