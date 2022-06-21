@@ -1,0 +1,20 @@
+{
+  "name": "kevin_gil_java-mern_project1",
+  "version": "1.0.0",
+  "description": "Root Folder of the myflightservice application.",
+  "main": null,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run --prefix myflights start & npm run --prefix myflightservice start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skillstormKevinGil/Kevin_Gil_Java-MERN_Project1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skillstormKevinGil/Kevin_Gil_Java-MERN_Project1/issues"
+  },
+  "homepage": "https://github.com/skillstormKevinGil/Kevin_Gil_Java-MERN_Project1#readme"
+}

@@ -29,3 +29,15 @@
         Passenger limit (flights cannot have more passengers on them/ booked than their limit allows)
 
 # Your code must be documented
+
+# Criteria
+    Technical Architecture
+        Designed and developed according to best practices
+    Functional Requirements
+        Application met all functional requirements
+    Non-Functional Requirements
+        Application met all non-functional requirements: performance, maintainability, security, etc.
+    UI/UX
+        Application had a professional user interface and acceptable user experience
+    Development
+        Developer(s) appropriately leveraged processes and tools for a structured development approach
