@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // Sample airline Object
 const americanAirlines = {
-    flightNumber: 651,
+    flightNumber: 'AM1',
     departure:[{
         date: 08/21/2020,
         time: 0705,
@@ -24,8 +24,8 @@ const americanAirlines = {
 // Create a flight schema
 const flightSchema = new Schema({
     flightNumber: { 
-        type: Number, 
-        required: true
+        type: String, 
+        //required: true
     },
     departure:[{
         date: Date,
