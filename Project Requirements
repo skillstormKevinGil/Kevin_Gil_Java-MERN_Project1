@@ -9,12 +9,14 @@
 
 # Technical Requirements
     You must use the following
-        Express.js
-        React
-        CSS/ Styled-Components/ (Materia-UI/Bootstrap)
-        MongoDB/ Mongoose
-        GitHub – Skillstorm Github
-        JavaScript
+        ✓ ServerSide - Express.js  
+        ✓ ClientSide - React       
+        ✓ CSS
+           ✓ Styled-Components
+            (Materia-UI/Bootstrap)
+        ✓ ClientSide - MongoDB/ Mongoose   
+        ✓ GitHub – Skillstorm Github
+        ✓ JavaScript
 
 # Minimum Requirements
     Flights must atleast have:
@@ -41,3 +43,46 @@
         Application had a professional user interface and acceptable user experience
     Development
         Developer(s) appropriately leveraged processes and tools for a structured development approach
+
+# Thought Process
+    Install Dependencies
+    Connect from the Server to the Database
+    Connect from the Client to the Server
+    Proper documentation
+    Async start (npm start server && npm start client)
+    
+    ServerSide
+    Database
+        - Populate the Database
+    POST/GET methods
+        Add
+        Update
+        Delete
+        View
+            - New Page needed, OR component over the main page.
+
+    ClientSide
+    Functional Page
+        Adding a Flight
+            Flight Number
+                - User Generated or Auto-Generated?
+            Date
+                -Valid year?
+                    -Min/Max
+            Time
+                - Localtime or UTC?
+                    - Auto calculating local time
+                    - Readability vs Speed
+                - Date & Time versus Datetime
+                - Datetime vs String
+                    -Conversion
+            Arrival/Departure
+                - User-generated content or autocomplete menu?
+            Passenger
+                - Are the inputs numbers?
+                - Passenger Limit
+        Viewing a Flight
+            - Can also act as a page for customers
+        Editing a Flight
+        Additional Information
+            Airline Info - which plane?

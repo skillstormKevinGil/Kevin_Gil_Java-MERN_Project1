@@ -1,16 +1,39 @@
 const Flight = require('../models/Flight.model');
 
-const createFlight = async ({flightNumber, departure, arrival, passengers}) => {
+const createFlight = async ({
+    flightNumber, 
+    departureDatetime, departureTimezone, departureLocation, 
+    arrivalDatetime, arrivalTimezone, arrivalLocation, 
+    passengerCurrent, passengerLimit
+}) => {
     try {
+        departureDatetime = new Date(departureDatetime);
+        arrivalDatetime = new Date(arrivalDatetime);
+
+        departureDatetime.setMinutes(departureDatetime.getMinutes() +  (Number(departureTimezone) * 60))
+        arrivalDatetime.setMinutes(arrivalDatetime.getMinutes() +  (Number(arrivalTimezone) * 60))
+
+        let departureTime =departureDatetime.toString().split(' ')[4] + ' UTC';
+        let arrivalTime = arrivalDatetime.toString().split(' ')[4] + ' UTC';
+
+        departureDate = departureDatetime.toDateString().slice(4);
+        arrivalDate = arrivalDatetime.toDateString().slice(4);
+
         const flight = new Flight({
             flightNumber, 
-            departure, 
-            arrival, 
-            passengers
+            departureDate, 
+            departureTime,
+            departureLocation,
+            arrivalDate,
+            arrivalTime, 
+            arrivalLocation,
+            passengerCurrent,
+            passengerLimit
         }); // This alone does not save to the database, this just simply prepares for the database
         await flight.save(); // Saves the newly created flight to the database
-
-        return flight._id; // Return the id of the newly created. Could also return the entire object
+        console.log(flight)
+        return flight;
+        //return flight._id; // Return the id of the newly created. Could also return the entire object
     } 
     // This catch will occur if any of the values are up to standard
     catch (err) {

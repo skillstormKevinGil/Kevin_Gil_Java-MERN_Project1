@@ -11,7 +11,12 @@ export const Center = styled.div`
 export const StyledComponents = () => {
     return (
         <Center>
-             <div id="box" style={{backgroundColor: 'blue', height: '50px', width: '50px'}}></div>
+             <div id="box" style={{
+                backgroundColor: 'blue', 
+                height: '50px', 
+                width: '50px'}}>
+                    
+                </div>
         </Center>
     );
 }

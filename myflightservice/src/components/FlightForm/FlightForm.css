@@ -1,9 +1,8 @@
 .MyForm {
     border: 5px solid black;
-    border-radius: 15%;
+    border-radius: 10px;
     background-color: cornflowerblue;
-    width: 20%;
-    height: 15%;
+    width: 350px;
     margin: auto;
     padding: 10px;
 }

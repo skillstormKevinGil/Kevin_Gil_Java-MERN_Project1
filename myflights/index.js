@@ -10,6 +10,17 @@ app.use(express.json()); // This is middleware that auto parses JSON into JS obj
 app.use(cors()); // Allow all traffic
 app.use(logger);
 
+console.log('Initializing myflights.')
+
+// Any HTTP request starting with /movies will come here
+const flightRouter =  require('./routes/flight.route.js');
+
+app.use('/flights', flightRouter);
+
+app.all('*', (req, res) => {
+    res.status(404).send('We don\'t have the resource you\'re looking for.');
+});
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log('Successfully connected to MongoDB!');
@@ -26,17 +37,3 @@ mongoose.connect(process.env.MONGO_URI)
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`);
 });
-
-
-// mongoose.disconnect(process.env.MONGO_URI)
-//      .then(() => {
-//      console.log('Disconnected from MongoDB!');
-//      })
-//      .catch(err => {
-//          console.error(err);
-//          // Options
-//          // OR
-//          // Terminate process
-//          process.exit(1);
-//      });
-// process.exit(1);
