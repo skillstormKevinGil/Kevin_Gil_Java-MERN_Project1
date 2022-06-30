@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './FlightForm.css';
+import './AddFlightForm.css';
 
-export const FlightForm = () => {
+export const AddFlightForm = () => {
     const flightNumberRef = useRef();
     const departureDatetimeRef = useRef();
     const departureTimezoneRef = useRef();
@@ -31,10 +31,7 @@ export const FlightForm = () => {
                             });
             navigate('../', {replace: true});
         } catch (error) {
-            console.log('Error - FlightForm.jsx/axios/post - ' + error);
-            // console.log('Axios Data- ' + error.response.data);
-            // console.log('Axios Status- ' + error.response.status);
-            // console.log('Axios Headers- ' + error.response.headers);
+            console.log('Error - addFlightForm.jsx/axios/post - ' + error);
         }
     }
 

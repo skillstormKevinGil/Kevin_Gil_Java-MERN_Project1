@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FlightForm } from "../components/FlightForm"
 
 export const Landing = () => {
     const [shouldRender, setShouldRender] = useState(true);
@@ -10,7 +9,8 @@ export const Landing = () => {
 
     return (
         <>
-            <FlightForm/>
+        <button onClick={toggleComponent}>Toggle Render</button>
+        {shouldRender && <p>Hello</p>}
         </>
     );
 }

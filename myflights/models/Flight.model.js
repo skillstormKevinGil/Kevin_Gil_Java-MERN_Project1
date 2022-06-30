@@ -18,31 +18,40 @@ const americanAirlines = {
 // Create a flight schema
 const flightSchema = new Schema({
     flightNumber: { 
-        type: String
+        type: String,
+        required: true
     },
     departureDate: { 
-        type: String
+        type: String,
+        required: true
     },
     departureTime: { 
-        type: String
+        type: String,
+        required: true
     },
     departureLocation: { 
-        type: String
+        type: String,
+        required: true
     },
     arrivalDate: { 
-        type: String
+        type: String,
+        required: true
     },
     arrivalTime: { 
-        type: String
+        type: String,
+        required: true
     },
-    arrivallLocation: { 
-        type: String
+    arrivalLocation: { 
+        type: String,
+        required: true
     },
     passengerCurrent: {
-        type: Number
+        type: Number,
+        default: 0
     },
     passengerLimit: {
-        type: Number
+        type: Number,
+        required: true
     },
 });
 
