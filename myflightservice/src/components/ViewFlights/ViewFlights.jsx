@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './ViewFlights.css'
 import '../../App.css';
 
-export const FlightList = () => {
+export const CustomerFlightList = () => {
 
     const [flights, setFlights] = useState([]);
 
@@ -13,7 +14,7 @@ export const FlightList = () => {
     }, []);
 
     return (
-        <div className = 'flightComponent'>
+        <div className = 'viewFlightComponent'>
             {/* Transform the flights array into an array of JSX elements */}
             {flights.map((flight, index) => {
                 // For our keys, we should use some unique property for the key value

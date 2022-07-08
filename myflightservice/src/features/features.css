@@ -1,0 +1,63 @@
+.navigation{
+    background-color: #6495ED;
+    color: white;
+    font-size: 20px;
+    padding: 0.75em 1.5em;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid;
+    border-color: black;
+}
+
+nav{
+    font-size: 20px;
+}
+
+footer{
+    flex-direction: column;
+    margin-top: auto;
+    height: auto;
+    bottom: 0;
+    border-top: solid;
+    border-color: black;
+}
+
+section{
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer{
+    justify-content: space-around;
+}
+
+div{
+    margin: 0px, 0.5em;
+    /*padding-right: 1.5em;*/
+    padding: 0px;
+}#right{
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+a{
+    color: inherit; /* Use the color that the parent element is using */
+    text-decoration: none;
+    transition: color, 0.25s;
+    padding: 1.5em;
+}
+
+a:hover{
+    color: lightgray;
+}
+
+p{
+    color: inherit;
+    margin: 0px;
+}
+
+img{
+    height:40px;
+    margin:0;
+    padding-right: 1.5em;;
+}

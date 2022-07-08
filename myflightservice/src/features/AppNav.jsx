@@ -1,23 +1,61 @@
-import { Nav, NavItem, NavLink, NavSection } from '../components/Nav';
+import { useState } from "react";
+import UserContext, { user } from '../contexts/UserContext.js';
+import './features.css';
+import '../App.css';
+import logoImg from '../images/airplane-vector-logo.png';
 
-// This is an opinionated NavBar
-export const AppNav = () => {
+export const AppNav = () => {        
+{/*
+    const [currUser, setCurrUser] = useState();
+
+    const toggleUser = () => {
+        console.log('Change User')
+        if (currUser === user.guest) {
+            setCurrUser(user.assoc);
+        } else if(currUser === user.assoc){
+            setCurrUser(user.admin);
+        }else {
+            setCurrUser(user.guest);
+        }
+      }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    }
+*/}
     return (
-        <Nav>
-            <NavSection justify-content="flex-start">
-                <NavItem>
-                    <NavLink to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="flights/add">Add Flight</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="flights/view">View Flights</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="flights/manage">Manage Flights</NavLink>
-                </NavItem>
-            </NavSection>
-        </Nav>
+        <nav className='navigation'>
+            <section className='nav'>
+                <div className='navItem'>
+                    <img src={logoImg} alt="Airline Logo"/>
+                </div>
+                <div className='navItem'>
+                    <a href="/">Home</a>
+                </div>
+{
+                <div className='navItem'>
+                    <a href="/flights/add">Add Flight</a>
+                </div>
+}
+                <div className='navItem'>
+                    <a href="/flights/view">View Flights</a>
+                </div>
+{
+                <div className='navItem'>
+                    <a href="/flights/manage">Manage Flights</a>
+                </div>
+}
+{
+                <div className='navItem'>
+                    <a href="/flights/edit">Edit Flight</a>
+                </div>
+}
+{/*
+                <div className='navItem' id='right'>
+                    <button onClick={toggleUser}>Toggle Login</button>
+                </div>
+*/}
+            </section>
+        </nav>
     );
 }

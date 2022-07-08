@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     res.json(flights);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/id', async (req, res) => {
     try {
         const flight = await findFlightById(req.params.id);
         res.json(flight);
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 });
 
 //==============================================================
-router.put('/:id', async (req, res) => {
+router.put('/id', async (req, res) => {
     try {
         const flightId = await updateFlight(req.body);
         res.status(201).json({_id: flightId});
@@ -37,7 +37,7 @@ router.put('/:id', async (req, res) => {
   });
 
 //==============================================================
-router.delete('/', async (req, res) => {
+router.delete('/all', async (req, res) => {
     try{
          const flightId = await deleteAllFlights();
          res.status(201).json();
@@ -46,7 +46,7 @@ router.delete('/', async (req, res) => {
     }
 })
 
-router.delete('/id', async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
          const flightId = await deleteFlightById(req.params.id);
          res.status(201).json({_id: flightId});

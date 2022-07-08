@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRef } from "react";
+import './ManageFlights.css'
 import '../../App.css';
 
-export const FlightList = () => {
-
+export const ManagementFlightList = () => {
+    const flightIdRef = useRef();
     const [flights, setFlights] = useState([]);
 
     // As soon as the component loads, we fetch all flights
@@ -12,23 +14,76 @@ export const FlightList = () => {
             .then(res => setFlights(res.data));
     }, []);
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            console.log(flightIdRef.current.value)
+            if(window.confirm('Would you like to delete this flight?')){
+            await axios.delete('http://localhost:8085/flights/'+ flights.id);
+        }
+        } catch (error) {
+            console.log('Something Went Wrong - handleSubmit');
+        }
+    }
+
+    const deleteFlight = async (id) => {
+        try {
+            await axios.delete(`${id}`);
+            setFlights(
+                flights.filter((flight) => {
+                    return flight.id !== id;
+                })
+            );
+        } catch (error) {
+            console.log('Something Went Wrong - handleSubmit');
+        }
+    }
+
     return (
-        <div className = 'flightComponent'>
-            {/* Transform the flights array into an array of JSX elements */}
+        <div id='center' >
+        <table className='manageFlightComponent' >
+{/*
+            <tr style ={{position: 'sticky', top:'0.5em', }}>
+                <th>
+                    <input style ={{padding:'0', margin:'0'}} type="submit" value="Add Flight"  />
+                </th>
+            </tr>
+*/}
+            <tr style ={{position: 'sticky', top:'0em'}}>
+                <th>Flight</th>
+                <th>Departure Date</th>
+                <th>Departure Location</th>
+                <th>Departure Time</th>
+                <th>Arrival Date</th>
+                <th>Arrival Location</th>
+                <th>Arrival Time</th>
+                <th>Number of Passengers</th>
+                <th>Airline Capacity</th>
+                <th>Modify Flight</th>
+            </tr>
+            
             {flights.map((flight, index) => {
-                // For our keys, we should use some unique property for the key value
-                // Using index is a last resort if you have nothing else to use
-                // Unique ids should be used ONLY if the id was created at time of data creation (It won't change)
                 return (
-                    <ul>
-                    <li key={index}>Flight: <strong>{flight.flightNumber}</strong></li>
-                    <li key={index}>Date: <strong>{flight.departureDate}</strong> to <strong>{flight.arrivalDate}</strong></li>
-                    <li key={index}>Location: <strong>{flight.departureLocation}</strong> to <strong>{flight.arrivalLocation}</strong></li>
-                    <li key={index}>Time: <strong>{flight.departureTime}</strong> to <strong>{flight.arrivalTime}</strong></li>
-                    <li key={index}>Seats Available: <strong>{flight.passengerLimit - flight.passengerCurrent}</strong></li>
-                    </ul>
+                <tr>
+                    <td key={index}>{flight.flightNumber}</td>
+                    <td key={index}>{flight.departureDate}</td>
+                    <td key={index}>{flight.departureLocation}</td>
+                    <td key={index}>{flight.departureTime}</td>
+                    <td key={index}>{flight.arrivalDate}</td>
+                    <td key={index}>{flight.arrivalLocation}</td>
+                    <td key={index}>{flight.arrivalTime}</td>
+                    <td key={index}>{flight.passengerCurrent}</td>
+                    <td key={index}>{flight.passengerLimit}</td>
+                    <td key={index}>
+                        <form onSubmit={handleSubmit} ref={flightIdRef}>
+                             <input type="submit" value="Delete" />
+                        </form>
+                    </td>
+                </tr>
                 );
+            
             })}
-        </div>
+        </table>
+        </div> 
     );
 }

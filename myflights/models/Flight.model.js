@@ -19,7 +19,8 @@ const americanAirlines = {
 const flightSchema = new Schema({
     flightNumber: { 
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     departureDate: { 
         type: String,

@@ -1,16 +1,14 @@
-import { useState } from "react";
+import '../App.css'
 
 export const Landing = () => {
-    const [shouldRender, setShouldRender] = useState(true);
-
-    const toggleComponent = () => {
-        setShouldRender(!shouldRender);
-    }
-
     return (
         <>
-        <button onClick={toggleComponent}>Toggle Render</button>
-        {shouldRender && <p>Hello</p>}
+        <div>
+            <h1>Welcome to myFlightsService</h1>
+        </div>
+        <div>
+            <p>Hello</p>
+        </div>
         </>
     );
 }

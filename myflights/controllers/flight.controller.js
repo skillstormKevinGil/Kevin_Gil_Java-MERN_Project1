@@ -1,22 +1,21 @@
 const Flight = require('../models/Flight.model');
 
-const findAllFlights = async (limit=0) => {
-    const flights = await Flight.find(); // GET all flights
-    return flights;
-}
-
-const findFlightById = async id => {
+const findFlightById = async (flightId) => {
     try {
         // If no flight is found, this does NOT return a rejected promise. Instead null is returned
-        const flight = await Flight.findById(id);
+        const flight = await Flight.findById(flightId);
         if (flight == null) {
-            throw `No flight with the id of ${id} found.`;
+            throw `No flight with the id of ${flightId} found.`;
         }
         return flight; // Flight was found and we return it
     } catch (err) {
-        console.error(err);
         throw { status: 404, message: err }; // Akin to rejecting a Promise
     }
+}
+
+const findAllFlights = async (limit=0) => {
+    const flights = await Flight.find(); // GET all flights
+    return flights;
 }
 
 const createFlight = async({
@@ -48,11 +47,9 @@ const createFlight = async({
             arrivalLocation,
             passengerCurrent,
             passengerLimit
-        }); // This alone does not save to the database, this just simply prepares for the database
-        await flight.save(); // Saves the newly created flight to the database
-        console.log(flight)
-        return flight;
-        //return flight._id; // Return the id of the newly created. Could also return the entire object
+        }); 
+        await flight.save();
+        return flight._id; 
     } 
     // This catch will occur if any of the values are up to standard
     catch (err) {
@@ -61,26 +58,35 @@ const createFlight = async({
     }
 }
 
-const updateFlightById = async => ({
-
-})
-
-const deleteAllFlights = async(limit = 0) => {
-    const flights = await Flight.remove();
-    return flights;
-}
-
-const deleteFlightById = async id => {
+const updateFlightById = async (flightId) => {
     try {
-        // If no flight is found, this does NOT return a rejected promise. Instead null is returned
-        const flight = await Flight.deleteById(id);
+        const flight = await Flight.findById(flightId);
         if (flight == null) {
-            throw `No flight with the id of ${id} found.`;
+            throw `No flight with the id of ${flightId} found.`;
         }
         return flight; // Flight was found and we return it
     } catch (err) {
-        console.error(err);
         throw { status: 404, message: err }; // Akin to rejecting a Promise
     }
 }
-module.exports = { createFlight, findFlightById, updateFlightById, findAllFlights, deleteAllFlights };
+
+const deleteFlightById = async (flightId) => {
+    try {
+        console.log(`${flightId}`)
+        const flight = await Flight.deleteOne({_id: flightId});
+        if (!flight.deletedCount) {
+            throw `No flight with the id of ${flightId} found.`;
+        }
+        console.log(`${flightId} successfully removed`);
+        return `${flightId} successfully removed`;
+    } catch (err) {
+        throw { status: 404, message: err };
+    }
+}
+
+const deleteAllFlights = async(limit = 0) => {
+    const flights = await Flight.deleteMany();
+
+    return { status: 200, message: `All Flights Removed` };
+}
+module.exports = { findFlightById, findAllFlights, createFlight, updateFlightById, deleteFlightById, deleteAllFlights, };
