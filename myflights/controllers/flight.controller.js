@@ -19,12 +19,19 @@ const findAllFlights = async (limit=0) => {
 }
 
 const createFlight = async({
+    
     flightNumber, 
     departureDatetime, departureTimezone, departureLocation, 
     arrivalDatetime, arrivalTimezone, arrivalLocation, 
     passengerCurrent, passengerLimit
 }) => {
     try {
+        let errorFlag = 0;
+        let message = '';
+        flightNumber = flightNumber.toUpperCase();
+        departureLocation = departureLocation.toUpperCase();
+        arrivalLocation = arrivalLocation.toUpperCase();
+
         departureDatetime = new Date(departureDatetime);
         arrivalDatetime = new Date(arrivalDatetime);
 
@@ -37,19 +44,32 @@ const createFlight = async({
         departureDate = departureDatetime.toDateString().slice(4);
         arrivalDate = arrivalDatetime.toDateString().slice(4);
 
-        const flight = new Flight({
-            flightNumber, 
-            departureDate, 
-            departureTime,
-            departureLocation,
-            arrivalDate,
-            arrivalTime, 
-            arrivalLocation,
-            passengerCurrent,
-            passengerLimit
-        }); 
-        await flight.save();
-        return flight._id; 
+        if(passengerCurrent > passengerLimit){
+            errorFlag = 1;
+            message += 'Current number of Passengers is less than the Limit.\n'
+        }
+
+        if(departureDatetime.getTime() > arrivalDatetime.getTime()){
+            errorFlag = 1;
+            message += 'Time of Departure cannot occur after time of Arrival.\n'
+        }
+        if(errorFlag == 0){
+            const flight = new Flight({
+                flightNumber, 
+                departureDate, 
+                departureTime,
+                departureLocation,
+                arrivalDate,
+                arrivalTime, 
+                arrivalLocation,
+                passengerCurrent,
+                passengerLimit
+            }); 
+            await flight.save();
+            return flight._id; 
+        }else{
+            throw message
+        }
     } 
     // This catch will occur if any of the values are up to standard
     catch (err) {
@@ -58,13 +78,37 @@ const createFlight = async({
     }
 }
 
-const updateFlightById = async (flightId) => {
+const updateFlightById = async (flightId, {
+    departureDate, departureTime, departureLocation, 
+    arrivalDate, arrivalTime, arrivalLocation, 
+    passengerCurrent, passengerLimit
+}) => {
     try {
-        const flight = await Flight.findById(flightId);
-        if (flight == null) {
-            throw `No flight with the id of ${flightId} found.`;
+        let errorFlag = 0;
+        let message = '';
+        departureLocation = departureLocation.toUpperCase();
+        arrivalLocation = arrivalLocation.toUpperCase();
+        if(passengerCurrent > passengerLimit){
+            
+            errorFlag = 1;
+            message += 'Current number of Passengers is less than the Limit.\n'
         }
-        return flight; // Flight was found and we return it
+        
+        if(errorFlag == 0){
+            await Flight.updateOne({_id:flightId}, {$set:{
+                departureDate:departureDate, 
+                departureTime:departureTime,
+                departureLocation:departureLocation,
+                arrivalDate:arrivalDate,
+                arrivalTime:arrivalTime,
+                arrivalLocation:arrivalLocation,
+                passengerCurrent:passengerCurrent,
+                passengerLimit:passengerLimit
+            }}); 
+            return `Flight Update Occured`; 
+        }else{
+            throw message
+        }  
     } catch (err) {
         throw { status: 404, message: err }; // Akin to rejecting a Promise
     }

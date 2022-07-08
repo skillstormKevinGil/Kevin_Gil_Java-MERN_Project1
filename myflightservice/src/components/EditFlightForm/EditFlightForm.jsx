@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './EditFlightForm.css';
@@ -15,10 +15,17 @@ export const EditFlightForm = () => {
     const passengerLimitRef = useRef();
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    // eslint-disable-next-line
+    const [flights, setFlights] = useState([]);
+    useEffect(() => {
+        axios.get('http://localhost:8085/flights')
+            .then(res => setFlights(res.data));
+    }, [flightNumberRef]);
+
+    const handleEdit = async (event) => {
         event.preventDefault();
         try {
-            await axios.put('http://localhost:8085/flights', {
+            await axios.put(`http://localhost:8085/flights/${event}`, {
                 flightNumber: flightNumberRef.current.value, 
                 departureDatetime: departureDatetimeRef.current.value, 
                 departureTimezone: Number(departureTimezoneRef.current.value), 
@@ -37,7 +44,7 @@ export const EditFlightForm = () => {
 
     return (
         <>
-            <form className="MyForm" onSubmit={handleSubmit} >
+            <form className="MyForm" onSubmit={handleEdit} >
                 <label htmlFor="flightNumber">Flight Number:</label>
                 <div>
                     <input id="flightNumber" type="text" placeholder="Flight Number" ref={flightNumberRef} />

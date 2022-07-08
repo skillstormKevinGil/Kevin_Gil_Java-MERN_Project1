@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createFlight, findFlightById, findAllFlights, deleteAllFlights, deleteFlightById } = require('../controllers/flight.controller');
+const { createFlight, findFlightById, findAllFlights, deleteAllFlights, deleteFlightById, updateFlightById } = require('../controllers/flight.controller');
 // A router functions the same as your standard app, but it's a subsection of your app
 
 router.get('/', async (req, res) => {
@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     res.json(flights);
 });
 
-router.get('/id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const flight = await findFlightById(req.params.id);
         res.json(flight);
@@ -27,9 +27,9 @@ router.post('/', async (req, res) => {
 });
 
 //==============================================================
-router.put('/id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        const flightId = await updateFlight(req.body);
+        const flightId = await updateFlightById(req.params.id, req.body);
         res.status(201).json({_id: flightId});
     } catch (err) {
         res.status(err?.status || 500).json(err);
@@ -37,14 +37,14 @@ router.put('/id', async (req, res) => {
   });
 
 //==============================================================
-router.delete('/all', async (req, res) => {
-    try{
-         const flightId = await deleteAllFlights();
-         res.status(201).json();
-    } catch (err) {
-        res.status(400).json(err);
-    }
-})
+// router.delete('/all', async (req, res) => {
+//     try{
+//          const flightId = await deleteAllFlights();
+//          res.status(201).json();
+//     } catch (err) {
+//         res.status(400).json(err);
+//     }
+// })
 
 router.delete('/:id', async (req, res) => {
     try{

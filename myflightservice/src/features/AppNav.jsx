@@ -1,10 +1,13 @@
-import { useState } from "react";
-import UserContext, { user } from '../contexts/UserContext.js';
 import './features.css';
 import '../App.css';
 import logoImg from '../images/airplane-vector-logo.png';
-
-export const AppNav = () => {        
+// eslint-disable-next-line
+{/*
+import { useState } from "react";
+import UserContext, { user } from '../contexts/UserContext.js';
+*/}
+export const AppNav = () => {     
+     // eslint-disable-next-line  
 {/*
     const [currUser, setCurrUser] = useState();
 
@@ -45,11 +48,11 @@ export const AppNav = () => {
                     <a href="/flights/manage">Manage Flights</a>
                 </div>
 }
-{
+{/*
                 <div className='navItem'>
                     <a href="/flights/edit">Edit Flight</a>
                 </div>
-}
+*/}
 {/*
                 <div className='navItem' id='right'>
                     <button onClick={toggleUser}>Toggle Login</button>
