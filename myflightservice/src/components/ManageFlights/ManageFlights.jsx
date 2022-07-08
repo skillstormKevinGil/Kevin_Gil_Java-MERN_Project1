@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useRef } from "react";
 import './ManageFlights.css'
 import '../../App.css';
 
 export const ManagementFlightList = () => {
-    const flightIdRef = useRef();
+    const navigate = useNavigate();
     const [flights, setFlights] = useState([]);
 
     // As soon as the component loads, we fetch all flights
@@ -14,26 +14,12 @@ export const ManagementFlightList = () => {
             .then(res => setFlights(res.data));
     }, []);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleDelete = async (event) => {
         try {
-            console.log(flightIdRef.current.value)
             if(window.confirm('Would you like to delete this flight?')){
-            await axios.delete('http://localhost:8085/flights/'+ flights.id);
+                await axios.delete(`http://localhost:8085/flights/${event}`);
+                navigate('../flights/view', {replace: true});
         }
-        } catch (error) {
-            console.log('Something Went Wrong - handleSubmit');
-        }
-    }
-
-    const deleteFlight = async (id) => {
-        try {
-            await axios.delete(`${id}`);
-            setFlights(
-                flights.filter((flight) => {
-                    return flight.id !== id;
-                })
-            );
         } catch (error) {
             console.log('Something Went Wrong - handleSubmit');
         }
@@ -75,9 +61,7 @@ export const ManagementFlightList = () => {
                     <td key={index}>{flight.passengerCurrent}</td>
                     <td key={index}>{flight.passengerLimit}</td>
                     <td key={index}>
-                        <form onSubmit={handleSubmit} ref={flightIdRef}>
-                             <input type="submit" value="Delete" />
-                        </form>
+                        <button onClick={() => handleDelete(flight._id)}>Delete</button>
                     </td>
                 </tr>
                 );

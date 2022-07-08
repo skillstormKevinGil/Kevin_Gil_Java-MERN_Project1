@@ -46,7 +46,7 @@ router.delete('/all', async (req, res) => {
     }
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try{
          const flightId = await deleteFlightById(req.params.id);
          res.status(201).json({_id: flightId});
